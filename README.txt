@@ -26,6 +26,7 @@ CARA HUBUNGKAN GOOGLE SPREADSHEET
 
 CATATAN PENTING SINKRONISASI
 - Form dan data lokal dapat dipakai offline pada perangkat/browser yang sama.
+- URL endpoint Apps Script tertanam di app.js dan tidak ditampilkan kepada pengguna. Untuk mengganti endpoint, administrator mengubah konstanta APPS_SCRIPT_URL.
 - Pengiriman memakai request no-cors karena endpoint Apps Script biasanya tidak menyediakan respons CORS yang dapat dibaca browser. Aplikasi menandai data sebagai "Terkirim, menunggu verifikasi", bukan mengklaim berhasil.
 - ID unik pada setiap record mencegah baris ganda jika pengiriman diulang. Periksa tab HOOM_DATA sebelum menghapus data lokal.
 - Data localStorage terikat pada browser/perangkat. Jangan hapus data browser sebelum memastikan data sudah ada di Spreadsheet.
