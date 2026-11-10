@@ -1,0 +1,11 @@
+{
+  "name":"HOOM SISWA OPERATOR",
+  "short_name":"HOOM Operator",
+  "description":"Aplikasi input HOOM / Day siswa operator",
+  "start_url":"./",
+  "scope":"./",
+  "display":"standalone",
+  "background_color":"#f3f6fa",
+  "theme_color":"#173d67",
+  "icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

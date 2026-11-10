@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#173d67"><meta name="description" content="Aplikasi input HOOM Siswa Operator">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>HOOM SISWA OPERATOR</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#172b42;background:#f3f6fa}
+*{box-sizing:border-box}body{margin:0}.top{background:#173d67;color:white;padding:24px 18px 28px}.wrap{max-width:850px;margin:auto}.eyebrow{font-size:11px;letter-spacing:2px;opacity:.8;font-weight:700}.top h1{margin:7px 0 4px;font-size:clamp(23px,5vw,32px)}.top p{margin:0;color:#d8e7f6;font-size:13px}.main{max-width:850px;margin:-14px auto 40px;padding:0 14px}.panel{background:white;border:1px solid #e1e8f0;border-radius:16px;padding:20px;box-shadow:0 8px 24px #173d6710}.status{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:17px}.pill{font-size:12px;padding:7px 10px;border-radius:30px;background:#eef3f8;color:#34516e}.dot{width:7px;height:7px;border-radius:50%;display:inline-block;background:#16a36a;margin-right:5px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font-size:13px;font-weight:700;color:#31465e}input,select,textarea{width:100%;font:inherit;font-size:15px;padding:12px 13px;border:1px solid #ccd7e3;border-radius:9px;background:#fff;color:#172b42;min-height:46px}textarea{min-height:86px;resize:vertical}input:focus,select:focus,textarea:focus{outline:3px solid #dceafa;border-color:#3976b7}.readonly{background:#f3f6fa;color:#60758b}.hint{font-size:11px;color:#718399}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}button{border:0;border-radius:9px;padding:12px 16px;font-weight:700;font-size:14px;cursor:pointer}.primary{background:#1769aa;color:#fff;flex:1}.secondary{background:#eaf1f8;color:#234866}.danger{background:#fff0ef;color:#a33}.section{margin-top:18px}.section h2{font-size:16px;margin:0 0 10px}.queue{margin-top:18px}.queuehead{display:flex;justify-content:space-between;align-items:center;gap:10px}.queuehead h2{font-size:16px}.count{font-size:12px;color:#597089}.item{border:1px solid #e2e9f0;border-radius:10px;padding:11px;margin-top:8px;font-size:13px;display:flex;justify-content:space-between;gap:10px}.item strong{display:block}.muted{color:#6d8196;font-size:11px}.empty{color:#718399;text-align:center;padding:20px;border:1px dashed #cbd7e3;border-radius:10px;font-size:13px}.config{margin-top:16px}.config summary{font-weight:700;font-size:13px;cursor:pointer}.foot{text-align:center;color:#7c8da0;font-size:11px;padding:16px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:16px}.actions button{flex:1}.top{padding-top:20px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><div class="eyebrow">OPERATOR TRAINING ACTIVITY RECORD</div><h1>HOOM SISWA OPERATOR</h1><p>Aplikasi pencatatan HOOM / Day siswa operator</p></div></header>
+<main class="main">
+<section class="panel">
+<div class="status"><span class="pill" id="network"><span class="dot"></span>Memeriksa koneksi...</span><span class="pill" id="queueStatus">0 data tersimpan di perangkat</span></div>
+<form id="entryForm">
+<div class="grid">
+<div class="field"><label for="tanggal">TANGGAL *</label><input id="tanggal" name="tanggal" type="date" required></div>
+<div class="field"><label for="hari">HARI</label><input id="hari" class="readonly" readonly placeholder="Otomatis dari tanggal"></div>
+<div class="field"><label>LOKASI *</label><select id="lokasi" required><option value="">Pilih lokasi</option><option>CAKUNG</option><option>SKP</option></select></div>
+<div class="field"><label for="nama">NAMA SISWA *</label><select id="nama" required><option value="">Pilih nama siswa</option><option>ADI ARIANTO</option><option>ARYA RUSMANA</option><option>FERY RAMDANI</option><option>GIO SURYA SAPUTRA</option><option>MUHAMMAD</option><option>RARA MARTISA</option><option>WAHYU SAPUTRA</option><option>IQRAM ASSIDIQI</option></select></div>
+<div class="field"><label for="model">MODEL UNIT *</label><input id="model" required placeholder="Contoh: PC200-10"></div>
+<div class="field"><label for="code">CODE UNIT *</label><input id="code" required placeholder="Masukkan code unit"></div>
+<div class="field"><label for="hoom">HOOM / DAY (MENIT) *</label><input id="hoom" type="number" min="0" step="1" required placeholder="Masukkan durasi dalam menit"></div>
+<div class="field full"><label for="keterangan">KETERANGAN</label><textarea id="keterangan" placeholder="Tambahkan keterangan (opsional)"></textarea></div>
+</div>
+<div class="actions"><button class="primary" type="submit">Simpan Data</button><button class="secondary" type="button" id="resetBtn">Reset Form</button></div>
+</form>
+</section>
+<section class="panel queue">
+<div class="queuehead"><h2>Data Tersimpan</h2><span class="count" id="count">0 record</span></div>
+<p class="hint">Data tersimpan di perangkat ini. Data akan tetap ada saat offline.</p>
+<div id="records"><div class="empty">Belum ada data. Isi form untuk mulai mencatat.</div></div>
+<div class="actions"><button class="primary" id="syncBtn" type="button">Sinkronkan ke Spreadsheet</button><button class="secondary" id="csvBtn" type="button">Export CSV</button><button class="secondary" id="pdfBtn" type="button">Cetak / PDF</button></div>
+<details class="config">
+<summary>Pengaturan koneksi Google Spreadsheet</summary>
+<div class="field" style="margin-top:12px"><label for="endpoint">URL Web App Google Apps Script</label><input id="endpoint" type="url" placeholder="https://script.google.com/macros/s/.../exec"><span class="hint">Tempel URL deployment Apps Script. Pengaturan disimpan di perangkat ini.</span></div>
+<div class="actions"><button type="button" class="secondary" id="saveConfig">Simpan URL</button></div>
+</details>
+</section>
+<div class="foot">HOOM SISWA OPERATOR · PWA · Data tersimpan lokal pada perangkat</div>
+</main>
+<script src="app.js"></script>
+</body></html>
